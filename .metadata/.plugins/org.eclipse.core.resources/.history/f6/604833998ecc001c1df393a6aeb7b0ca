@@ -1,0 +1,65 @@
+package api.com.tests;
+
+import static org.junit.Assert.assertEquals;
+
+import static io.restassured.RestAssured.given;
+
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+public class apiTestScript {
+	
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers() {
+		
+		//Response contains all json and status code from server
+		//then is use for validation but we are using assersation
+		//given everything provide in input
+		//when will contain method name and url endpoint
+		
+		
+		  Response resp = given() 
+				  .when().get("https://reqres.in/api/users?page=2");
+		  
+		  int actualStatusCode = resp.statusCode(); 
+		  assertEquals(actualStatusCode,200);
+		  System.out.println(resp.getBody().asString());
+		
+						
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_QueryParameter() {
+		
+		
+		  //Queryparam use best way
+		  Response resp1 = given().queryParam("page", 2)
+				  .when().get("https://reqres.in/api/users");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  int actualvalue = resp1.path("total");
+		  assertEquals(actualvalue, 12);
+		  					
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_Header() {
+		
+		
+		  //Queryparam use best way
+		  Response resp1 = given().queryParam("page", 2)
+				  .when().get("https://reqres.in/api/users");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  int actualvalue = resp1.path("total");
+		  assertEquals(actualvalue, 12);
+		  					
+	}
+
+}

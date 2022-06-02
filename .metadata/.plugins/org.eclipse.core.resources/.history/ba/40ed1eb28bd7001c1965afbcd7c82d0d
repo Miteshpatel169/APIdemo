@@ -1,0 +1,8 @@
+package api.com.pojo;
+
+public class cityModel {
+	
+	private String name;
+	private String temprature;
+
+}

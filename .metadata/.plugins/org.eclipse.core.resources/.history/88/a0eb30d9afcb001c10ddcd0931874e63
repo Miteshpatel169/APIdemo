@@ -1,0 +1,16 @@
+package api.com.tests;
+
+import org.testng.annotations.Test;
+
+public class apiTestScript {
+	
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers() {
+		
+		
+		
+		
+	}
+
+}

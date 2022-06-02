@@ -1,0 +1,5 @@
+package api.com.pojo;
+
+public class cityModel {
+
+}

@@ -1,0 +1,24 @@
+package api.com.util;
+
+public class Helper {
+	
+	public static String propertyReader(String filePath, String key)
+
+	{
+	        String value = null;
+	       
+	        //Inputstream is required while loading into properties
+	   
+	       try (InputStream input = new FileInputStream(“common.properties”)) //filepath can be hardcoded
+	        {
+	           
+	           // object creation for Property class
+	            Properties prop = new Properties();
+
+	            // load a properties file
+	            prop.load(input);
+
+	            //getProperty will fetch
+	        }
+
+}

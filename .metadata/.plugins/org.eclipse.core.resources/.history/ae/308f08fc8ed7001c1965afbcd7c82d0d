@@ -1,0 +1,2 @@
+Baseurl = https://reqres.in/api/users?page=2
+Posturl = https://reqres.in/api/users

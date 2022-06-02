@@ -1,0 +1,316 @@
+package api.com.tests;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.json.simple.parser.ParseException;
+
+import static io.restassured.RestAssured.given;
+
+import org.testng.annotations.Test;
+
+import api.com.pojo.cityModel;
+import api.com.pojo.pojoClass;
+import api.com.pojo.pojolessComplex;
+import api.com.util.Helper;
+import api.com.util.ReadTestData;
+import io.restassured.response.Response;
+
+public class apiTestScript {
+	
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers() {
+		
+		//Response contains all json and status code from server
+		//then is use for validation but we are using assersation
+		//given everything provide in input
+		//when will contain method name and url endpoint
+		
+		
+		  Response resp = given() 
+				  .when().get("https://reqres.in/api/users?page=2");
+		  
+		  int actualStatusCode = resp.statusCode(); 
+		  assertEquals(actualStatusCode,200);
+		  System.out.println(resp.getBody().asString());
+		
+						
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_QueryParameter() {
+		
+		
+		  //Queryparam use best way
+		  Response resp1 = given().queryParam("page", 2)
+				  .when().get("https://reqres.in/api/users");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  int actualvalue = resp1.path("total");
+		  assertEquals(actualvalue, 12);
+		  					
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_Header() {
+		
+		
+		  //Queryparam use best way
+		  Response resp1 = given().pathParam("pathName","api")
+				  .queryParam("page", 2)
+				  .when()
+				  .get("https://reqres.in/{pathName}/users");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  int actualvalue = resp1.path("total");
+		  assertEquals(actualvalue, 12);
+		  					
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_BasicAuth() {
+		
+		
+		  Response resp1 = given()
+				  .auth()
+				  .basic("postman", "password")
+				  .when()
+				  .get("https://postman-echo.com/basic-auth");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_DigestAuth() {
+		
+		
+		  Response resp1 = given()
+				  .auth()
+				  .digest("postman", "password")
+				  .when()
+				  .get("https://postman-echo.com/digest-auth");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_Auth1() {
+		
+		
+		  Response resp1 = given()
+				  .auth()
+				  .oauth("consumerKey", "consumerSecret", "accessToken", "secretToken")
+				  .when()
+				  .get("https://postman-echo.com/digest-auth");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  
+	}
+	
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_Auth2() {
+		
+		
+		  Response resp1 = given()
+				  .auth()
+				  .oauth2("accesstoken")
+				  .when()
+				  .get("https://postman-echo.com/digest-auth");
+		  
+		  int actualStatusCode1 = resp1.statusCode(); 
+		  assertEquals(actualStatusCode1,200);
+		  System.out.println(resp1.getBody().asString());
+		  
+	}
+	
+	//json testdata read from util package Readtestdata json class
+	@Test(description="Validate the status code for GET users endpoint")
+	public void validateStatusCodeGetUsers_testdata() throws IOException, ParseException {
+		
+		//Response contains all json and status code from server
+		//then is use for validation but we are using assersation
+		//given everything provide in input
+		//when will contain method name and url endpoint
+		
+		System.out.println("***********"+ReadTestData.getTestData("url"));
+		  Response resp = given() 
+				  .when()
+				  .get(ReadTestData.getTestData("url"));
+		  
+		  int actualStatusCode = resp.statusCode(); 
+		  assertEquals(actualStatusCode,200);
+			 System.out.println(resp.getBody().asString()); 
+		
+						
+	}
+	
+	//json testdata read from util package Readtestdata json class
+		@Test(description="Validate the status code for GET users endpoint")
+		public void validateStatusCodeGetUsers_commonproperties() throws IOException, ParseException {
+			
+			//Response contains all json and status code from server
+			//then is use for validation but we are using assersation
+			//given everything provide in input
+			//when will contain method name and url endpoint
+			
+			System.out.println("***********"+Helper.propertyReader("Baseurl"));
+			  Response resp = given() 
+					  .when()
+					  .get(Helper.propertyReader("Baseurl"));
+			  
+			  int actualStatusCode = resp.statusCode(); 
+			  assertEquals(actualStatusCode,200);
+				 System.out.println(resp.getBody().asString()); 
+			
+							
+		}
+		
+		//using external file with post method
+		@Test(description="Validate the status code for GET users endpoint")
+		public void validateStatusCodeGetUsers_usingzfile() throws IOException, ParseException {
+			
+			//Response contains all json and status code from server
+			//then is use for validation but we are using assersation
+			//given everything provide in input
+			//when will contain method name and url endpoint
+			
+			File filetest = new File(System.getProperty("user.dir")+"/Resources/TestData/postmethodrequestbody.json");
+			FileInputStream file = new FileInputStream(filetest);
+			
+			System.out.println("***********"+ReadTestData.getTestData("url"));
+			  Response resp = given().header("Content-Type","application/json")
+					  .body(IOUtils.toString(file, "UTF-8"))
+					  .when()
+					  .post(Helper.propertyReader("Posturl"));
+			  
+			  int actualStatusCode = resp.statusCode(); 
+			  assertEquals(actualStatusCode,201);
+				 System.out.println(resp.getBody().asString()); 
+			
+							
+		}
+
+		// using POJO
+		@Test(description = "Validate the status code for GET users endpoint")
+		public void validateStatusCodeGetUsers_usingPOJO() throws IOException, ParseException {
+
+			// Response contains all json and status code from server
+			// then is use for validation but we are using assersation
+			// given everything provide in input
+			// when will contain method name and url endpoint
+
+			File filetest = new File(System.getProperty("user.dir") + "/Resources/TestData/postmethodrequestbody.json");
+			FileInputStream file = new FileInputStream(filetest);
+			
+			pojoClass pojo = new pojoClass();
+			pojo.setName("morpheus");
+			pojo.setJob("leader");
+
+			System.out.println("***********" + ReadTestData.getTestData("url"));
+			Response resp = given().header("Content-Type", "application/json")
+					//.body(IOUtils.toString(file, "UTF-8"))
+					.body(pojo)
+					.when().post(Helper.propertyReader("Posturl"));
+
+			int actualStatusCode = resp.statusCode();
+			assertEquals(actualStatusCode, 201);
+			System.out.println(resp.getBody().asString());
+
+		}
+		
+		// using POJO complex List
+				@Test(description = "Validate the status code for GET users endpoint")
+				public void validateStatusCodeGetUsers_usingPOJOComplex() throws IOException, ParseException {
+
+					// Response contains all json and status code from server
+					// then is use for validation but we are using assersation
+					// given everything provide in input
+					// when will contain method name and url endpoint
+
+					File filetest = new File(System.getProperty("user.dir") + "/Resources/TestData/postmethodrequestbody.json");
+					FileInputStream file = new FileInputStream(filetest);
+					
+					/// Use this Logic
+					List<String> job = new ArrayList<String>();
+					job.add("tester");
+					job.add("developer");
+					
+					pojolessComplex pojocom = new pojolessComplex();
+					pojocom.setJob(job);
+					
+					
+					/////////////////
+					pojoClass pojo = new pojoClass();
+					pojo.setName("morpheus");
+					pojo.setJob("leader");
+
+					System.out.println("***********" + ReadTestData.getTestData("url"));
+					Response resp = given().header("Content-Type", "application/json")
+							//.body(IOUtils.toString(file, "UTF-8"))
+							.body(pojo)
+							.when().post(Helper.propertyReader("Posturl"));
+
+					int actualStatusCode = resp.statusCode();
+					assertEquals(actualStatusCode, 201);
+					System.out.println(resp.getBody().asString());
+
+				}
+				
+				// using POJO Morecomplex List
+				@Test(description = "Validate the status code for GET users endpoint")
+				public void validateStatusCodeGetUsers_usingPOJO_VeryComplex() throws IOException, ParseException {
+
+					// Response contains all json and status code from server
+					// then is use for validation but we are using assersation
+					// given everything provide in input
+					// when will contain method name and url endpoint
+
+					File filetest = new File(System.getProperty("user.dir") + "/Resources/TestData/postmethodrequestbody.json");
+					FileInputStream file = new FileInputStream(filetest);
+					
+					/// Use this less compexLogic
+					List<String> job = new ArrayList<String>();
+					job.add("tester");
+					job.add("developer");
+					
+					pojolessComplex pojocom = new pojolessComplex();
+					pojocom.setJob(job);
+					
+					//Very complex logic
+					cityModel cityban = new cityModel();
+					cityban.setName("banglor");
+					cityban.setTemprature("30");
+					
+					cityModel citydel = new cityModel();
+					citydel.setName("delhi");
+					citydel.setTemprature("50");
+					
+					List<cityModel> jobsss = new ArrayList<cityModel>();
+					jobsss.add(citydel);
+					jobsss.add(cityban);
+					
+
+				}
+
+
+
+}
